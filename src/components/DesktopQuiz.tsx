@@ -4,9 +4,10 @@ import type { Question } from "../types";
 interface DesktopQuizProps {
   questions: Question[];
   onFinish: (score: number, wrongAnswers: number[]) => void; // New prop
+  showMissingAnswers?: boolean;
 }
 
-const DesktopQuiz: React.FC<DesktopQuizProps> = ({ questions, onFinish }) => {
+const DesktopQuiz: React.FC<DesktopQuizProps> = ({ questions, showMissingAnswers, onFinish }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -41,12 +42,17 @@ const DesktopQuiz: React.FC<DesktopQuizProps> = ({ questions, onFinish }) => {
     return <p>Няма намерени въпроси.</p>;
   }
 
-  const answers = {
+  let answers: Record<string, string> = {
     A: currentQuestion.answer_a,
     B: currentQuestion.answer_b,
     C: currentQuestion.answer_c,
     D: currentQuestion.answer_d,
   };
+
+  if (!showMissingAnswers) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    answers = Object.fromEntries(Object.entries(answers).filter(([_, value]) => value !== null && value !== ""));
+  }
 
   return (
     <div className="quiz-container desktop-quiz">
