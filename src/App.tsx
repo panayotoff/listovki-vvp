@@ -44,8 +44,8 @@ function App() {
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
 
   // const isMobile = false; // useMediaQuery("(max-width: 768px)");
-  const navigationButtons = Array.from({ length: Math.ceil(allQuestions.length / 20) }, (_, i) =>
-    i === 0 ? 1 : i * 20
+  const navigationButtons = Array.from({ length: Math.ceil(allQuestions.length / 50) }, (_, i) =>
+    i === 0 ? 1 : i * 50
   );
 
   const handleScrollToQuestion = (e: React.MouseEvent<HTMLAnchorElement>) => {

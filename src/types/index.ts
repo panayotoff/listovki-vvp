@@ -7,6 +7,7 @@ export interface Question {
     answer_c: string;
     answer_d: string;
     correct_answer: 'A' | 'B' | 'C' | 'D';
+    section?: string; // Optional section/category
 }
 
 export interface SingleQuiz {
