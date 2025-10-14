@@ -273,6 +273,14 @@ main {
   padding: 2rem;
 }
 
+.button-label-title{
+  margin-inline-end: .5em;
+}
+
+.button-label-count{
+  white-space: nowrap;
+}
+
 /* --- Mobile Swiper Styles --- */
 .mobile-quiz .mySwiper {
   width: 100%;
@@ -410,6 +418,10 @@ footer {
 
   a:hover {
     background-color: var(--light-color);
+  }
+
+  .nav-button-section{
+    color: black;
   }
 }
 

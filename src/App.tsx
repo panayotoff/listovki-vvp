@@ -15,6 +15,7 @@ import "./index.css";
 type AppMode = "search" | "quiz" | "results";
 const QUIZ_LENGTH = 60;
 const SINGLE_THEME_QUIZ_LENGTH = 20;
+const NAVIGATION_STEP = 50;
 
 function App() {
   const themeQuizes: SingleQuiz[] = [...themeTests] as SingleQuiz[];
@@ -34,9 +35,11 @@ function App() {
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
 
   // const isMobile = false; // useMediaQuery("(max-width: 768px)");
-  const navigationButtons = Array.from({ length: Math.ceil(allQuestions.length / 50) }, (_, i) =>
-    i === 0 ? 1 : i * 50
+  const navigationButtons = Array.from({ length: Math.ceil(allQuestions.length / NAVIGATION_STEP) }, (_, i) =>
+    i === 0 ? 1 : i * NAVIGATION_STEP
   );
+  navigationButtons.push(184, 329);
+  navigationButtons.sort((a, b) => a - b);
 
   const handleScrollToQuestion = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -166,7 +169,7 @@ function App() {
                       )
                     }
                   >
-                    <span>{quiz.title} ({quiz.questionsNumbers.length})</span>
+                    <span className="button-label-title">{quiz.title}</span><span className="button-label-count">({quiz.questionsNumbers.length})</span>
                   </button>
                 </div>
               ))}
@@ -233,6 +236,7 @@ function App() {
           <div className="quiz-navigation">
             {navigationButtons.map((questionIndex) => (
               <a
+                className={questionIndex % NAVIGATION_STEP === 0 ? "" : "nav-button-section"}
                 key={questionIndex}
                 href={`#question-${questionIndex}`}
                 title={`Отиди на въпрос ${questionIndex}`}
