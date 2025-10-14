@@ -205,6 +205,10 @@ main {
   text-align: left;
 }
 
+.button-large{
+  padding: 10px 20px;
+}
+
 .button-green {
   background-color: #66bb6a;
 }

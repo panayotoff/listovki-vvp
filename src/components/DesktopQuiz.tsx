@@ -88,7 +88,7 @@ const DesktopQuiz: React.FC<DesktopQuizProps> = ({ questions, showMissingAnswers
       </div>
       {isAnswered && (
         <>
-          <button onClick={handleNextQuestion} className="button-primary">
+          <button onClick={handleNextQuestion} className="button-primary button-large">
             {currentQuestionIndex < questions.length - 1 ? "Следващ въпрос" : "Приключи теста"}
           </button>
           <span className="quiz-question-number">{currentQuestion.question_number}</span>

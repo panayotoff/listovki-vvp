@@ -142,6 +142,13 @@ function App() {
     setDisplayQuestions({ startQuestion: section.startQuestion, endQuestion: section.endQuestion });
   };
 
+  const getSectionQuestions = (section: Section) => {
+    return allQuestions.filter(
+      (q) =>
+        parseInt(q.question_number) >= section.startQuestion && parseInt(q.question_number) <= section.endQuestion
+    );
+  }
+
   const renderContent = () => {
     switch (mode) {
       case "quiz":
@@ -197,7 +204,8 @@ function App() {
                       startQuiz(
                         quiz.questionsNumbers.map(
                           (num) => allQuestions.find((q) => q.question_number === num.toString()) || allQuestions[0]
-                        )
+                        ),
+                        quiz.questionsNumbers.length
                       )
                     }
                   >
@@ -205,6 +213,16 @@ function App() {
                     <span className="button-label-count">({quiz.questionsNumbers.length})</span>
                   </button>
                 </div>
+              ))}
+              {allSection.map((section, index) => (
+                <button
+                  key={index}
+                  className="button-primary start-button"
+                  onClick={() => startQuiz(getSectionQuestions(section), getSectionQuestions(section).length)}
+                >
+                  <span className="button-label-title">{section.title}</span>
+                  <span className="button-label-count">({getSectionQuestions(section).length})</span>
+                </button>
               ))}
             </div>
 
