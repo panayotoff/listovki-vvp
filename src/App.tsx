@@ -166,7 +166,7 @@ function App() {
                       )
                     }
                   >
-                    <span>{quiz.title} ( {quiz.questionsNumbers.length} )</span>
+                    <span>{quiz.title} ({quiz.questionsNumbers.length})</span>
                   </button>
                 </div>
               ))}
