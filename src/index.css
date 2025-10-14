@@ -209,6 +209,14 @@ main {
   background-color: #66bb6a;
 }
 
+.button-section {
+  background-color: #6c757d;
+}
+
+.button-section-selected {
+  background-color: #1f1f1f;
+}
+
 .button-grey {
   display: inline-flex;
   align-items: center;
@@ -226,6 +234,14 @@ main {
 
 .button-green:hover {
   background-color: #388e3c;
+}
+
+.button-section:hover {
+  background-color: #5a6268;
+}
+
+.button-section-selected:hover {
+  background-color: #0e0e0e;
 }
 
 .button-grey:hover {
@@ -273,11 +289,11 @@ main {
   padding: 2rem;
 }
 
-.button-label-title{
-  margin-inline-end: .5em;
+.button-label-title {
+  margin-inline-end: 0.5em;
 }
 
-.button-label-count{
+.button-label-count {
   white-space: nowrap;
 }
 
@@ -420,7 +436,7 @@ footer {
     background-color: var(--light-color);
   }
 
-  .nav-button-section{
+  .nav-button-section {
     color: black;
   }
 }

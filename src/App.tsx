@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import allQuestions from "./data/questions.json";
+import allSection from "./data/sections.json";
 import themeTests from "./data/tests.json";
-import type { Question, SingleQuiz } from "./types";
+import type { Question, SingleQuiz, Section } from "./types";
 import { shuffleArray } from "./utils/arrayUtils";
 import { APP_BUILD_DATE } from "./version";
 
@@ -33,6 +34,10 @@ function App() {
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
   const [finalScore, setFinalScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
+  const [displayQuestions, setDisplayQuestions] = useState<Section>({
+    startQuestion: 1,
+    endQuestion: allQuestions.length,
+  });
 
   // const isMobile = false; // useMediaQuery("(max-width: 768px)");
   const navigationButtons = Array.from({ length: Math.ceil(allQuestions.length / NAVIGATION_STEP) }, (_, i) =>
@@ -56,12 +61,14 @@ function App() {
   useEffect(() => {
     const results = allQuestions.filter(
       (question) =>
-        question.question_number.toString().includes(searchTerm) ||
-        question.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.answer_a.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.answer_b.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.answer_c.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        question.answer_d.toLowerCase().includes(searchTerm.toLowerCase())
+        (question.question_number.toString().includes(searchTerm) ||
+          question.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          question.answer_a.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          question.answer_b.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          question.answer_c.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          question.answer_d.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        parseInt(question.question_number) >= displayQuestions.startQuestion &&
+        parseInt(question.question_number) <= displayQuestions.endQuestion
     );
     setFilteredQuestions(
       results.map((q) => ({
@@ -69,7 +76,7 @@ function App() {
         correct_answer: q.correct_answer as "A" | "B" | "C" | "D",
       }))
     );
-  }, [searchTerm]);
+  }, [searchTerm, displayQuestions.startQuestion, displayQuestions.endQuestion]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -121,6 +128,20 @@ function App() {
     setMode("search");
   };
 
+  const isSectionSelected = (section: Section) => {
+    return (
+      displayQuestions.startQuestion === section.startQuestion && displayQuestions.endQuestion === section.endQuestion
+    );
+  };
+
+  const handleOnSectionClick = (section: Section) => {
+    if (isSectionSelected(section)) {
+      setDisplayQuestions({ startQuestion: 1, endQuestion: allQuestions.length });
+      return;
+    }
+    setDisplayQuestions({ startQuestion: section.startQuestion, endQuestion: section.endQuestion });
+  };
+
   const renderContent = () => {
     switch (mode) {
       case "quiz":
@@ -142,6 +163,17 @@ function App() {
         return (
           <>
             <div className="start-quiz-container">
+              {allSection.map((section, index) => (
+                <button
+                  key={index}
+                  className={`button-primary button-section start-button ${
+                    isSectionSelected(section) ? "button-section-selected" : ""
+                  }`}
+                  onClick={() => handleOnSectionClick(section)}
+                >
+                  <span>{section.title}</span>
+                </button>
+              ))}
               <button
                 title={`Примерен тест от ${QUIZ_LENGTH} случайни въпроса`}
                 onClick={() => startQuiz()}
@@ -169,7 +201,8 @@ function App() {
                       )
                     }
                   >
-                    <span className="button-label-title">{quiz.title}</span><span className="button-label-count">({quiz.questionsNumbers.length})</span>
+                    <span className="button-label-title">{quiz.title}</span>
+                    <span className="button-label-count">({quiz.questionsNumbers.length})</span>
                   </button>
                 </div>
               ))}

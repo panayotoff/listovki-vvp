@@ -1,0 +1,17 @@
+[
+  {
+    "title": "ВМК ОППД",
+    "startQuestion": 1,
+    "endQuestion": 183
+  },
+  {
+    "title": "ВМК за спорт и развлечение",
+    "startQuestion": 184,
+    "endQuestion": 329
+  },
+  {
+    "title": "ВМК Обща подготовка",
+    "startQuestion": 350,
+    "endQuestion": 467
+  }
+]

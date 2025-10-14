@@ -13,7 +13,6 @@ const SearchResultsList: React.FC<SearchResultsListProps> = ({ questions, showAn
   }
 
   const shouldRenderAnswer = (answer: string | null) => {
-    console.log(answer, showMissingAnswers);
     if (answer) return true;
     if (showMissingAnswers) return true;
     return false;

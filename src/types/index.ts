@@ -1,16 +1,22 @@
 export interface Question {
-    question_number: string;
-    question: string;
-    question_image?: string; // Optional image
-    answer_a: string;
-    answer_b: string;
-    answer_c: string;
-    answer_d: string;
-    correct_answer: 'A' | 'B' | 'C' | 'D';
-    section?: string; // Optional section/category
+  question_number: string;
+  question: string;
+  question_image?: string; // Optional image
+  answer_a: string;
+  answer_b: string;
+  answer_c: string;
+  answer_d: string;
+  correct_answer: "A" | "B" | "C" | "D";
+  section?: string; // Optional section/category
 }
 
 export interface SingleQuiz {
-    title: string;
-    questionsNumbers: (string | number)[];
+  title: string;
+  questionsNumbers: (string | number)[];
+}
+
+export interface Section {
+  title?: string;
+  startQuestion: number;
+  endQuestion: number;
 }
