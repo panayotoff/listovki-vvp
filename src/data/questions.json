@@ -585,7 +585,8 @@
     "answer_b": "Тласкачи, при тласкани състави.",
     "answer_c": "Кораби превозващи по-вече от 12 пътника.",
     "answer_d": "Кораби загубили способноста си да маневрират.",
-    "correct_answer": "A"
+    "correct_answer": "A",
+    "question_image": "image37.jpeg"
   },
   {
     "question_number": "65",
